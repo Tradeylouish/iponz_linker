@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "IPONZ Linker",
+  "version": "1.0.0",
+  "icons": {
+    "16": "images/icon-16.png",
+    "128": "images/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/icon-16.png", 
+      "128": "images/icon-128.png"
+    }
+  },
+  "permissions": ["activeTab", "storage", "scripting"],
+  "content_scripts": [
+   {
+     "matches": ["https://www.google.com/"],
+     "js": ["url-content-script.js"]
+   },
+   {
+    "matches": ["https://app.iponz.govt.nz/app/Extra/IP/PT/Qbe*"],
+    "js": ["search-content-script.js"]
+  }
+ ]
+
+}
