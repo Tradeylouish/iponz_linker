@@ -15,7 +15,7 @@
       "128": "images/icon-128.png"
     }
   },
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage", "scripting", "clipboardWrite"],
   "content_scripts": [
    {
      "matches": ["https://github.com/Tradeylouish/iponz_linker*"],

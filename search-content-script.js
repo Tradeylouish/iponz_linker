@@ -26,5 +26,5 @@ chrome.storage.sync.get(['register', 'app_number'], function(data) {
     search_button.focus();
     search_button.click();
 
-    chrome.storage.local.remove(['app_number', 'register']);
+    chrome.storage.sync.remove(['app_number', 'register']);
 })
