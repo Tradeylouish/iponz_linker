@@ -3,9 +3,9 @@ This extension is a utility for permalinking cases on the IPONZ patent, design, 
 # Linking
 The permalinks used by this extension are simply the URL of this repository with a search parameter appended that encodes the relevant register and IP number. 
 Here are examples for the patent, design, and trade mark registers respectively:
-https://github.com/Tradeylouish/iponz_linker?pt=519157
-https://github.com/Tradeylouish/iponz_linker?ds=433816
-https://github.com/Tradeylouish/iponz_linker?tm=1263964
+* https://github.com/Tradeylouish/iponz_linker?pt=519157
+* https://github.com/Tradeylouish/iponz_linker?ds=433816
+* https://github.com/Tradeylouish/iponz_linker?tm=1263964
 
 With this extension installed, following a link in this format will redirect you appropriately. Pinning the extension and clicking its icon while viewing a case will also generate a link and copy it to your clipboard.
 
