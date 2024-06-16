@@ -11,6 +11,6 @@ With this extension installed, following a link in this format will redirect you
 
 # Installation
 This extension is currently in beta and yet to be deployed to the Chrome Web store. For now you'll have to install from source as follows:
-1. Clone this git repository. Install [git bash](https://www.git-scm.com/downloads), open a console and run git clone https://github.com/Tradeylouish/iponz_linker
+1. Clone this git repository (install [git bash](https://www.git-scm.com/downloads), open a console and run `git clone https://github.com/Tradeylouish/iponz_linker`)
 2. Open Microsoft Edge or Google Chrome, go to "Manage Extensions" and turn Developer Mode on
-3. Select "Load unpacked" and select the cloned repository. 
+3. Click "Load unpacked" and select the cloned repository
