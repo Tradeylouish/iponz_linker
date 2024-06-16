@@ -15,14 +15,14 @@
       "128": "images/icon-128.png"
     }
   },
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": ["activeTab", "storage"],
   "content_scripts": [
    {
-     "matches": ["https://www.google.com/"],
+     "matches": ["https://github.com/Tradeylouish/iponz_linker*"],
      "js": ["url-content-script.js"]
    },
    {
-    "matches": ["https://app.iponz.govt.nz/app/Extra/IP/PT/Qbe*"],
+    "matches": ["https://app.iponz.govt.nz/app/Extra/IP/*"],
     "js": ["search-content-script.js"]
   }
  ]

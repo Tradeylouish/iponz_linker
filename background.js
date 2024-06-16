@@ -6,6 +6,8 @@ chrome.runtime.onInstalled.addListener(() => {
 
 const iponz = 'https://app.iponz.govt.nz/app/Extra'
 
+
+// Maake this function produce a link and copy to clipboard
 chrome.action.onClicked.addListener(async (tab) => {
   if (tab.url.startsWith(iponz)) {
     // Retrieve the action badge to check if the extension is 'ON' or 'OFF'
