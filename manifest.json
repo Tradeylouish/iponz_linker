@@ -3,16 +3,18 @@
   "name": "IPONZ Linker",
   "version": "1.0.0",
   "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
+    "16": "images/icon-16.ico",
+    "32": "images/icon-32.png",
+    "120": "images/icon-120.png"
   },
   "background": {
     "service_worker": "background.js"
   },
   "action": {
     "default_icon": {
-      "16": "images/icon-16.png", 
-      "128": "images/icon-128.png"
+      "16": "images/icon-16.ico", 
+      "32": "images/icon-32.png",
+      "120": "images/icon-120.png"
     }
   },
   "permissions": ["activeTab", "storage", "scripting", "clipboardWrite"],

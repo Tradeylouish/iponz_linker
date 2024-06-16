@@ -1,7 +1,7 @@
 // Example URLs: 
 // https://github.com/Tradeylouish/iponz_linker?pt=519157
-// https://github.com/Tradeylouish/iponz_linker?ds=519157
-// https://github.com/Tradeylouish/iponz_linker?tm=519157
+// https://github.com/Tradeylouish/iponz_linker?ds=433816
+// https://github.com/Tradeylouish/iponz_linker?tm=1263964
 const current_Url = new URL(window.location.href);
 const search_string = current_Url.search; // In format: ?pt=519157
 

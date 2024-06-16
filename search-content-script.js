@@ -1,7 +1,7 @@
 chrome.storage.sync.get(['register', 'app_number'], function(data) {
 
-    var field_id = '';
-    var button_id = '';
+    let field_id = '';
+    let button_id = '';
 
     switch(data.register) {
         case 'pt':
@@ -21,7 +21,6 @@ chrome.storage.sync.get(['register', 'app_number'], function(data) {
 
     search_field.focus();
     document.execCommand('insertText', false, data.app_number);
-    search_field.dispatchEvent(new Event('change', {bubbles: true})); // usually not needed
 
     search_button.focus();
     search_button.click();
