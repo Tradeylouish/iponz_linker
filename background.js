@@ -18,7 +18,7 @@ function copy_text(text) {
   console.log(text);
   try {
     navigator.clipboard.writeText(text);
-    console.log('Copied to clipboard!');
+    alert("Copied link to clipboard: " + text);
   } catch (error) {
     console.error(error);
   }
