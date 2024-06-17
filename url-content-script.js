@@ -8,6 +8,10 @@ const search_string = current_Url.search; // In format: ?pt=519157
 const register = search_string.slice(1, 3);
 const app_number = search_string.slice(4);
 
-chrome.storage.sync.set({register: register, app_number: app_number}, function() {
-    window.location.replace('https://app.iponz.govt.nz/app/Extra/Default.aspx?op=EXTRA_' + register + '_qbe&fcoOp=EXTRA__Default&directAccess=true')
-})
+// Very basic validation of search. Could be more thorough
+if (!isNaN(app_number)) {
+    chrome.storage.sync.set({register: register, app_number: app_number}, function() {
+        window.location.replace('https://app.iponz.govt.nz/app/Extra/Default.aspx?op=EXTRA_' + register + '_qbe&fcoOp=EXTRA__Default&directAccess=true');
+    })
+}
+

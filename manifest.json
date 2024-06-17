@@ -21,7 +21,8 @@
   "content_scripts": [
    {
      "matches": ["https://github.com/Tradeylouish/iponz_linker?*"],
-     "js": ["url-content-script.js"]
+     "js": ["url-content-script.js"],
+     "run_at":"document_start"
    },
    {
     "matches": ["https://app.iponz.govt.nz/app/Extra/IP/*"],
