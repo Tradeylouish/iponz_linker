@@ -26,7 +26,8 @@
    },
    {
     "matches": ["https://app.iponz.govt.nz/app/Extra/IP/*"],
-    "js": ["search-content-script.js"]
+    "js": ["search-content-script.js"],
+    "run_at":"document_end"
   }
  ]
 

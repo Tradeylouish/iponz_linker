@@ -4,11 +4,11 @@ function extract_data() {
   // Ignore "Session Expired: " text if present 
   const app_number = chunks[0].includes("Session ") ? chunks[0].split(' ')[2] : chunks[0];
 
-  if (chunks[1].includes('Patent')) {
+  if (chunks[1].includes('Patent') || chunks[1].includes('PCT')) {
     register = 'pt';
   } else if (chunks[1].includes('Design')) {
     register = 'ds';
-  } else if (chunks[1].includes('Trade Mark')) {
+  } else if (chunks[1].includes('Trade Mark') || chunks[1].includes('International')) {
     register = 'tm';
   }
   
