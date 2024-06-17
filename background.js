@@ -24,29 +24,27 @@ function copy_text(text) {
   }
 }
 
+console.log("Running popup script");
 const iponz_url = 'https://app.iponz.govt.nz/app/Extra/IP/'
 
-// Make this function produce a link and copy to clipboard
-chrome.action.onClicked.addListener(async (tab) => {
-  if (tab.url.startsWith(iponz_url)) {
-    
-    await chrome.scripting.executeScript({
+if (tab.url.startsWith(iponz_url)) {
+  
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: extract_data,
+  });
+
+  chrome.storage.sync.get(['register', 'app_number'], function(data) {
+    const link = 'https://github.com/Tradeylouish/iponz_linker?' + data.register + '=' + data.app_number;
+    console.log(link);
+    chrome.storage.sync.remove(['register, app_number']);
+
+    // Save to clipboard
+    chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: extract_data,
+      function: copy_text,
+      args: [link],
     });
-
-    chrome.storage.sync.get(['register', 'app_number'], function(data) {
-      const link = 'https://github.com/Tradeylouish/iponz_linker?' + data.register + '=' + data.app_number;
-      console.log(link);
-      chrome.storage.sync.remove(['register, app_number']);
-
-      // Save to clipboard
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: copy_text,
-        args: [link],
-      });
-    
-    })
-  }
-});
+  
+  })
+}
