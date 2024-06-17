@@ -20,7 +20,7 @@
   "permissions": ["activeTab", "storage", "scripting", "clipboardWrite"],
   "content_scripts": [
    {
-     "matches": ["https://github.com/Tradeylouish/iponz_linker*"],
+     "matches": ["https://github.com/Tradeylouish/iponz_linker?*"],
      "js": ["url-content-script.js"]
    },
    {

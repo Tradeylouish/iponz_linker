@@ -1,7 +1,7 @@
 chrome.storage.sync.get(['register', 'app_number'], function(data) {
 
-    let field_id = '';
-    let button_id = '';
+    var field_id = '';
+    var button_id = '';
 
     switch(data.register) {
         case 'pt':
