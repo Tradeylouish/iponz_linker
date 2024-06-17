@@ -1,13 +1,14 @@
 function extract_data() {
   const title = document.title;
-  const words = title.split(' - ');
-  const app_number = words[0];
+  const chunks = title.split(' - ');
+  // Ignore "Session Expired: " text if present 
+  const app_number = chunks[0].includes("Session ") ? chunks[0].split(' ')[2] : chunks[0];
 
-  if (words[1].includes('Patent')) {
+  if (chunks[1].includes('Patent')) {
     register = 'pt';
-  } else if (words[1].includes('Design')) {
+  } else if (chunks[1].includes('Design')) {
     register = 'ds';
-  } else if (words[1].includes('Trade Mark')) {
+  } else if (chunks[1].includes('Trade Mark')) {
     register = 'tm';
   }
   
