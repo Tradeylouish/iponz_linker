@@ -14,4 +14,3 @@ if (!isNaN(app_number)) {
         window.location.replace('https://app.iponz.govt.nz/app/Extra/Default.aspx?op=EXTRA_' + register + '_qbe&fcoOp=EXTRA__Default&directAccess=true');
     })
 }
-
