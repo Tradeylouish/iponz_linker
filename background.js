@@ -7,7 +7,7 @@ function on_click(tab) {
   if (!tab.url.startsWith(iponz_url)) {
     return 0;
   }
-    
+
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     files: ["link-content-script.js"],
