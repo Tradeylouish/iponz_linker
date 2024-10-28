@@ -1,5 +1,6 @@
+chrome.storage.sync.get(['register', 'app_number'], load_case);
 
-chrome.storage.sync.get(['register', 'app_number'], function(data) {
+function load_case(data) {
     // Exit if there's no data to load
     if (JSON.stringify(data) === '{}') {
         return 0;
@@ -10,7 +11,7 @@ chrome.storage.sync.get(['register', 'app_number'], function(data) {
     switch(data.register) {
         case 'pt':
             field_id = '#MainContent_ctrlPTSearch_txtGtNr';
-            button_id = '#MainContent_ctrlPTSearch_lnkbtnSearch'
+            button_id = '#MainContent_ctrlPTSearch_lnkbtnSearch';
             break;
         case 'ds':
             field_id = '#MainContent_ctrlDSSearch_txtAppNr';
@@ -30,5 +31,4 @@ chrome.storage.sync.get(['register', 'app_number'], function(data) {
     search_button.click();
 
     chrome.storage.sync.remove(['app_number', 'register']);
-})
-
+}
