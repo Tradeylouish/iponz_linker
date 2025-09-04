@@ -28,7 +28,6 @@ function load_case(data) {
   document.execCommand('insertText', false, data.app_number);
 
   search_button.focus();
-  search_button.click();
-
+  window.dispatchEvent(new MouseEvent('proxy-click', { relatedTarget: search_button }));
   chrome.storage.sync.remove(['app_number', 'register']);
 }

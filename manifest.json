@@ -19,17 +19,39 @@
       "128": "images/icon-128.png"
     }
   },
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
   "content_scripts": [
-   {
-     "matches": ["https://github.com/Tradeylouish/iponz_linker?*"],
-     "js": ["url-content-script.js"],
-     "run_at":"document_start"
-   },
-   {
-    "matches": ["https://app.iponz.govt.nz/app/Extra/IP/*"],
-    "js": ["search-content-script.js"],
-    "run_at":"document_end"
-  }
- ]
+    {
+      "matches": [
+        "https://github.com/Tradeylouish/iponz_linker?*"
+      ],
+      "js": [
+        "url-content-script.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://app.iponz.govt.nz/app/Extra/IP/*"
+      ],
+      "js": [
+        "proxy-click.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://app.iponz.govt.nz/app/Extra/IP/*"
+      ],
+      "js": [
+        "search-content-script.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
 }
