@@ -1,33 +1,69 @@
-chrome.storage.sync.get(['register', 'app_number'], load_case);
+chrome.storage.sync.get(['register', 'number', 'agent', 'applicant', 'class', 'filingDate'], run_search);
 
-function load_case(data) {
+const fieldMappings = {
+  pt: {
+    number: '#MainContent_ctrlPTSearch_txtGtNr',
+    agent: '#MainContent_ctrlPTSearch_txtLocalAgentNameSearch',
+    applicant: '#MainContent_ctrlPTSearch_txtapplicantNameSearch',
+    classification: '#MainContent_ctrlPTSearch_txtIPCKeywork',
+    filingDateFrom: '#MainContent_ctrlPTSearch_txtFilingDateFrom',
+    filingDateTo: '#MainContent_ctrlPTSearch_txtFilingDateTo',
+    button: '#MainContent_ctrlPTSearch_lnkbtnSearch'
+  },
+  ds: {
+    number: '#MainContent_ctrlDSSearch_txtAppNr',
+    agent: '#MainContent_ctrlDSSearch_txtLocalAgentNameSearch',
+    applicant: '#MainContent_ctrlDSSearch_txtapplicantNameSearch',
+    classification: '#MainContent_ctrlDSSearch_txtLocarnoClassification',
+    filingDateFrom: '#MainContent_ctrlDSSearch_txtFilingDateFrom',
+    filingDateTo: '#MainContent_ctrlDSSearch_txtFilingDateTo',
+    button: '#MainContent_ctrlDSSearch_lnkbtnSearch'
+  },
+  tm: {
+    number: '#MainContent_ctrlTMSearch_txtAppNr',
+    agent: '#MainContent_ctrlTMSearch_txtLocalAgentNameSearch',
+    applicant: '#MainContent_ctrlTMSearch_txtapplicantNameSearch',
+    classification: '#MainContent_ctrlTMSearch_txtNiceClassification',
+    filingDateFrom: '#MainContent_ctrlTMSearch_txtFilingDateFrom',
+    filingDateTo: '#MainContent_ctrlTMSearch_txtFilingDateTo',
+    button: '#MainContent_ctrlTMSearch_lnkbtnSearch'
+  }
+};
+
+function run_search(data) {
   // Exit if there's no data to load
   if (JSON.stringify(data) === '{}') {
     return 0;
   }
-  var field_id = '';
-  var button_id = '';
 
-  switch (data.register) {
-    case 'pt':
-      field_id = '#MainContent_ctrlPTSearch_txtGtNr';
-      button_id = '#MainContent_ctrlPTSearch_lnkbtnSearch';
-      break;
-    case 'ds':
-      field_id = '#MainContent_ctrlDSSearch_txtAppNr';
-      button_id = '#MainContent_ctrlDSSearch_lnkbtnSearch';
-      break;
-    case 'tm':
-      field_id = '#MainContent_ctrlTMSearch_txtAppNr';
-      button_id = '#MainContent_ctrlTMSearch_lnkbtnSearch';
+  const mapping = fieldMappings[data.register];
+  if (!mapping) return;
+
+  // Fill fields
+  Object.keys(mapping).forEach(key => {
+    if (key !== 'button' && data[key]) {
+      const field = document.querySelector(mapping[key]);
+      if (field) {
+        field.value = data[key];
+      }
+    }
+  });
+
+  // Focus on number field and insert text if present
+  // if (data.number) {
+  //   const numberField = document.querySelector(mapping.number);
+  //   if (numberField) {
+  //     numberField.focus();
+  //     document.execCommand('insertText', false, data.number);
+  //   }
+  // }
+
+  // Click the search button
+  const searchButton = document.querySelector(mapping.button);
+  if (searchButton) {
+    searchButton.focus();
+    window.dispatchEvent(new MouseEvent('proxy-click', { relatedTarget: searchButton }));
   }
-  const search_field = document.querySelector(field_id);
-  const search_button = document.querySelector(button_id);
 
-  search_field.focus();
-  document.execCommand('insertText', false, data.app_number);
-
-  search_button.focus();
-  window.dispatchEvent(new MouseEvent('proxy-click', { relatedTarget: search_button }));
-  chrome.storage.sync.remove(['app_number', 'register']);
+  chrome.storage.sync.remove(['register', 'number', 'agent', 'applicant', 'class', 'filingDate']);
 }

@@ -3,14 +3,19 @@
 // https://github.com/Tradeylouish/iponz_linker?ds=433816
 // https://github.com/Tradeylouish/iponz_linker?tm=1263964
 const current_Url = new URL(window.location.href);
-const search_string = current_Url.search; // In format: ?pt=519157
+const params = new URLSearchParams(current_Url.search);
 
-const register = search_string.slice(1, 3);
-const app_number = search_string.slice(4);
+const register = params.get('register');
+const number = params.get('number');
+const agent = params.get('agent');
+const applicant = params.get('applicant');
+const classification = params.get('classification');
+const filingDateFrom = params.get('filingDateFrom');
+const filingDateTo = params.get('filingDateTo');
 
-// Very basic validation of search. Could be more thorough
-if (!isNaN(app_number)) {
-  chrome.storage.sync.set({ register: register, app_number: app_number }, redirect)
+// Basic validation: check if register is present
+if (register) {
+  chrome.storage.sync.set({ register, number, agent, applicant, classification, filingDateFrom, filingDateTo }, redirect);
 }
 
 function redirect() {
