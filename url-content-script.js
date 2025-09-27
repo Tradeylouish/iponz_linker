@@ -1,18 +1,15 @@
-// Example URLs: 
-// https://github.com/Tradeylouish/iponz_linker?pt=519157
-// https://github.com/Tradeylouish/iponz_linker?ds=433816
-// https://github.com/Tradeylouish/iponz_linker?tm=1263964
+// Example URLs:
+// https://github.com/Tradeylouish/iponz_linker?register=pt&number=519157
+// https://github.com/Tradeylouish/iponz_linker?register=ds&number=433816
+// https://github.com/Tradeylouish/iponz_linker?register=tm&number=1263964
 const current_Url = new URL(window.location.href);
-const search_string = current_Url.search; // In format: ?pt=519157
+const params = new URLSearchParams(current_Url.search);
 
-const register = search_string.slice(1, 3);
-const app_number = search_string.slice(4);
-
-// Very basic validation of search. Could be more thorough
-if (!isNaN(app_number)) {
-  chrome.storage.sync.set({ register: register, app_number: app_number }, redirect)
+// Basic validation: check if register is present
+if (params.has("register")) {
+  chrome.storage.sync.set({ params: params.toString() }, redirect);
 }
 
 function redirect() {
-  window.location.replace('https://app.iponz.govt.nz/app/Extra/Default.aspx?op=EXTRA_' + register + '_qbe&fcoOp=EXTRA__Default&directAccess=true');
+  window.location.replace(`https://app.iponz.govt.nz/app/Extra/Default.aspx?op=EXTRA_${params.get('register')}_qbe&fcoOp=EXTRA__Default&directAccess=true`);
 }
