@@ -1,8 +1,8 @@
 const iponz_url = 'https://app.iponz.govt.nz/app/Extra/IP/'
 
-chrome.action.onClicked.addListener(on_click);
+chrome.action.onClicked.addListener(onClick);
 
-function on_click(tab) {
+function onClick(tab) {
   // Exit if not an IPONZ page
   if (!tab.url.startsWith(iponz_url)) {
     return 0;
@@ -10,6 +10,6 @@ function on_click(tab) {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    files: ["link-content-script.js"],
+    files: ["link-content-script.js"]
   });
 }
