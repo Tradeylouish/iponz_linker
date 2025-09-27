@@ -80,7 +80,7 @@ function createLink(data) {
       params.append(key, data[key]);
     }
   });
-  const link = `https://github.com/Tradeylouish/iponz_linker?${params.toString()}`;
+  const link = `https://iponz.link?${params.toString()}`;
   console.log(link);
   return link;
 }
