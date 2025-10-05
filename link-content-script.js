@@ -6,7 +6,7 @@ if (title.startsWith('Search ')) {
   data = extractRecordData(title);
 }
 var link = createLink(data);
-copyText(link);
+chrome.runtime.sendMessage({action: 'linkGenerated', link: link});
 
 function extractRecordData(title) {
   const chunks = title.split(' - ');
@@ -64,14 +64,7 @@ function extractSearchData(title) {
   return data;
 }
 
-function copyText(text) {
-  try {
-    navigator.clipboard.writeText(text);
-    alert("Copied link to clipboard: " + text);
-  } catch (error) {
-    console.error(error);
-  }
-}
+
 
 function createLink(data) {
   const params = new URLSearchParams();
