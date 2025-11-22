@@ -7,7 +7,7 @@ function convertToSlashesDate(dateStr) {
   return dateStr;
 }
 
-chrome.storage.sync.get(['params'], runSearch);
+chrome.storage.local.get(['params'], runSearch);
 
 function runSearch(storage) {
   const params = new URLSearchParams(storage.params);
@@ -66,5 +66,5 @@ function runSearch(storage) {
   }
 
   // After the search is run, remove the data from storage to allow normal use of register
-  chrome.storage.sync.remove(['params']);
+  chrome.storage.local.remove(['params']);
 }

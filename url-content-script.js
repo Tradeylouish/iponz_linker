@@ -7,7 +7,7 @@ const params = new URLSearchParams(current_Url.search);
 
 // Basic validation: check if register is present
 if (params.has("register")) {
-  chrome.storage.sync.set({ params: params.toString() }, redirect);
+  chrome.storage.local.set({ params: params.toString() }, redirect);
 }
 
 function redirect() {
