@@ -23,6 +23,17 @@
     "scripting",
     "clipboardWrite"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@iponz-linker",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
   "content_scripts": [
     {
       "matches": [
