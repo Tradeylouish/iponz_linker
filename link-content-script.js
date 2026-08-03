@@ -48,7 +48,7 @@ function extractSearchData(title) {
   // Use the mappings defined in mappings.js to iterate over all search fields and retrieve their data
   const mapping = fieldMappings[register];
   Object.keys(mapping).forEach(key => {
-    if (key !== 'button' && key !== 'prefix') {
+    if (key !== 'button' && key !== 'prefix' && key !== 'dropdowns' && key !== 'checkboxes' && key !== 'radios') {
       const fullId = `#${mapping.prefix}txt${mapping[key]}`;
       const field = document.querySelector(fullId);
       if (field && field.value.trim()) {
@@ -61,6 +61,46 @@ function extractSearchData(title) {
       }
     }
   });
+
+  // Extract dropdown values
+  if (mapping.dropdowns) {
+    Object.keys(mapping.dropdowns).forEach(key => {
+      const fullId = `#${mapping.prefix}${mapping.dropdowns[key]}`;
+      const field = document.querySelector(fullId);
+      if (field && field.value && field.value !== '-1') {
+        data[key] = field.value;
+      }
+    });
+  }
+
+  // Extract checkbox values
+  if (mapping.checkboxes) {
+    Object.keys(mapping.checkboxes).forEach(key => {
+      const fullId = `#${mapping.prefix}${mapping.checkboxes[key]}`;
+      const field = document.querySelector(fullId);
+      if (field && field.checked) {
+        data[key] = 'true';
+      }
+    });
+  }
+
+  // Extract radio button values
+  if (mapping.radios) {
+    const namePrefix = 'ctl00$' + mapping.prefix.replace(/_/g, '$');
+    Object.keys(mapping.radios).forEach(key => {
+      const radioName = `${namePrefix}${mapping.radios[key]}`;
+      const checkedRadio = document.querySelector(`input[name="${radioName}"]:checked`);
+      if (checkedRadio) {
+        // Only include if the value differs from the default selection
+        // For rblTxtDeno default is '0' (Word), for others default is '-1' (Undefined)
+        const defaults = { titleType: '0', series: '-1', maori: '-1' };
+        if (checkedRadio.value !== (defaults[key] || '-1')) {
+          data[key] = checkedRadio.value;
+        }
+      }
+    });
+  }
+
   return data;
 }
 

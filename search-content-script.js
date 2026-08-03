@@ -20,7 +20,7 @@ function runSearch(storage) {
   const mapping = fieldMappings[params.get('register')];
   if (!mapping) return;
 
-  // Fill fields
+  // Fill text fields
   for (const [key, value] of params) {
     if (key !== 'register' && mapping[key] && value) {
       const fullId = `${mapping.prefix}txt${mapping[key]}`;
@@ -31,6 +31,48 @@ function runSearch(storage) {
           valueToSet = convertToSlashesDate(value);
         }
         field.value = valueToSet;
+      }
+    }
+  }
+
+  // Fill dropdowns
+  if (mapping.dropdowns) {
+    for (const [key, value] of params) {
+      if (key !== 'register' && mapping.dropdowns[key] && value) {
+        const fullId = `${mapping.prefix}${mapping.dropdowns[key]}`;
+        const field = document.getElementById(fullId);
+        if (field) {
+          field.value = value;
+        }
+      }
+    }
+  }
+
+  // Fill checkboxes
+  if (mapping.checkboxes) {
+    for (const [key, value] of params) {
+      if (key !== 'register' && mapping.checkboxes[key] && value) {
+        const fullId = `${mapping.prefix}${mapping.checkboxes[key]}`;
+        const field = document.getElementById(fullId);
+        if (field) {
+          field.checked = value === 'true' || value === '1';
+        }
+      }
+    }
+  }
+
+  // Fill radio buttons
+  if (mapping.radios) {
+    // Derive the ASP.NET name prefix from the id prefix:
+    // 'MainContent_ctrlTMSearch_' -> 'ctl00$MainContent$ctrlTMSearch$'
+    const namePrefix = 'ctl00$' + mapping.prefix.replace(/_/g, '$');
+    for (const [key, value] of params) {
+      if (key !== 'register' && mapping.radios[key] && value) {
+        const radioName = `${namePrefix}${mapping.radios[key]}`;
+        const radio = document.querySelector(`input[name="${radioName}"][value="${value}"]`);
+        if (radio) {
+          radio.checked = true;
+        }
       }
     }
   }

@@ -39,7 +39,17 @@ const fieldMappings = {
     agent: 'LocalAgentNameSearch',
     contact: 'LocalCaseContactNameSearch',
     clientRef: 'ReferenceExtra',
-    button: 'lnkbtnSearch'
+    button: 'lnkbtnSearch',
+    dropdowns: {
+      priorityCountry: 'ddlPriorityCountry',
+      techGroup: 'ddlTechGroup',
+      act: 'ddlAct'
+    },
+    checkboxes: {
+      underProceeding: 'cbUnderProceeding',
+      traditionalKnowledge: 'cbTraditionalKnowledge',
+      maoriConflict: 'cbMaoriConflict'
+    }
   },
   ds: {
     prefix: 'MainContent_ctrlDSSearch_',
@@ -59,7 +69,13 @@ const fieldMappings = {
     contact: 'LocalCaseContactNameSearch',
     licensee: 'LocalLicenseeNameSearch',
     clientRef: 'ReferenceExtra',
-    button: 'lnkbtnSearch'
+    button: 'lnkbtnSearch',
+    dropdowns: {
+      priorityCountry: 'ctrlPrioCountry'
+    },
+    checkboxes: {
+      underProceeding: 'cbUnderProceeding'
+    }
   },
   tm: {
     prefix: 'MainContent_ctrlTMSearch_',
@@ -89,6 +105,19 @@ const fieldMappings = {
     agent: 'LocalAgentNameSearch',
     internationalRep: 'InternationalAgentNameSearch',
     clientRef: 'ReferenceExtra',
-    button: 'lnkbtnSearch'
+    button: 'lnkbtnSearch',
+    dropdowns: {
+      priorityCountry: 'ddlCountry',
+      markType: 'ddlType',
+      markNature: 'ddlNature'
+    },
+    checkboxes: {
+      underProceeding: 'cbUnderProceeding'
+    },
+    radios: {
+      titleType: 'rblTxtDeno',
+      series: 'rblSeries',
+      maori: 'rblMaoriTM'
+    }
   }
 };
