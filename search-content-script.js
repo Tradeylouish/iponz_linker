@@ -88,25 +88,94 @@ function runSearch(storage) {
     const dispatchClick = () => {
       if (!clicked) {
         clicked = true;
+
+        // Expand every collapsible section that contains a filled input.
+        // This prevents the page from collapsing sections the user filled in.
+        expandFilledSections(mapping);
+
         // The proxy-click script runs in the MAIN world of the DOM, to avoid the js of the button being blocked by CSP
         window.dispatchEvent(new MouseEvent('proxy-click', { relatedTarget: searchButton }));
       }
     };
 
-    // Wait for the page to finish applying styles, before running the search. Search breaks styling otherwise
+    // Wait for the page to finish applying styles, before running the search. Search breaks styling otherwise.
+    // We wait for the button to have jQuery UI's ui-button class AND for the document to be fully initialized
+    // (readyState === 'complete'). The MutationObserver alone fires on the first attribute change, which can be
+    // too early — collapsible section handlers may not be bound yet, causing sections to collapse unexpectedly.
+    let observerDisconnected = false;
+    const tryDispatch = () => {
+      if (observerDisconnected && document.readyState === 'complete' && !clicked) {
+        dispatchClick();
+      }
+    };
+
+    // Check if button is already styled (page may have loaded before this script ran)
+    if (searchButton.classList.contains('ui-button')) {
+      observerDisconnected = true;
+      tryDispatch();
+    }
+
     const observer = new MutationObserver(() => {
       observer.disconnect();
-      dispatchClick();
+      observerDisconnected = true;
+      tryDispatch();
     });
-    observer.observe(searchButton, { attributes: true, attributeFilter: ['style', 'class'] });
+    observer.observe(searchButton, { attributes: true, attributeFilter: ['class'] });
 
     // Fallback timeout of one second in case styling finish was missed
     setTimeout(() => {
       observer.disconnect();
-      dispatchClick();
+      observerDisconnected = true;
+      tryDispatch();
     }, 1000);
+
+    // Also listen for the load event in case the page is still loading
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', () => {
+        tryDispatch();
+      }, { once: true });
+    }
   }
 
   // After the search is run, remove the data from storage to allow normal use of register
   chrome.storage.local.remove(['params']);
+}
+
+/**
+ * Expands all collapsible sections that contain at least one filled input field.
+ * On the IPONZ registers, each section has a header element (h3/h4) with an id ending
+ * in '_header' and class 'expanded' or 'collapsed'.  Clicking a collapsed header
+ * expands it.  We only click headers that are collapsed AND whose section contains
+ * a non-empty form input.
+ */
+function expandFilledSections(mapping) {
+  // Find all collapsible headers on the page
+  const headers = document.querySelectorAll('[id$="_header"].collapsed');
+  headers.forEach(header => {
+    // The section content follows the header as a sibling.  Walk forward until
+    // we find the containing block (a div, table, or fieldset).
+    let container = header.nextElementSibling;
+    if (container) {
+      // Check whether any input, select, or textarea inside this container has a value
+      const inputs = container.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]), select, textarea');
+      let hasValue = false;
+      for (const input of inputs) {
+        if (input.type === 'checkbox' || input.type === 'radio') {
+          if (input.checked) {
+            hasValue = true;
+            break;
+          }
+        } else {
+          if (input.value && input.value.trim()) {
+            hasValue = true;
+            break;
+          }
+        }
+      }
+      if (hasValue) {
+        // Simulate a click on the header to expand the section
+        header.click();
+      }
+    }
+  });
 }
