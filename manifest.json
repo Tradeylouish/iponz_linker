@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "IPONZ Linker",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Create permanent links to searches on any of the IPONZ registers.",
   "icons": {
     "16": "images/icon-16.png",
